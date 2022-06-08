@@ -6,6 +6,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import joblib 
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -15,7 +16,8 @@ from PIL import Image
 st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ',  layout='wide')
 
 # Telecharger la base de données
-df = pd.read_csv('https://raw.githubusercontent.com/kfjfigueiredo/Projet_7/main/df_train_f2.csv',index_col= "SK_ID_CURR")
+# df = pd.read_csv('https://raw.githubusercontent.com/kfjfigueiredo/Projet_7/main/df_train_f2.csv',index_col= "SK_ID_CURR") # Code avant effacer ligne en bas
+df = joblib.load('https://raw.githubusercontent.com/kfjfigueiredo/test_P7/main/df_train_f2.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
 
