@@ -66,7 +66,7 @@ prob = df[(df['id']==id_client) & prob_defaut
 #chaine = '**Type de client :**' + str(classe_predit) 
 #st.markdown(chaine)
 
-chaine2 = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
+chaine2 = '**Risque de défault :**' + int(prob) + '% de risque de défaut'
 st.markdown(chaine2)
 
 
