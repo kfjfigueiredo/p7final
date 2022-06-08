@@ -18,9 +18,14 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 # Telecharger la base de données et les modèles
 df = joblib.load('df_complet.pkl') #df complet
 train_dataset = joblib.load('train_dataset.pkl')
-lgbm_model = joblib.load('train_dataset.pkl')
+model_lgbm = joblib.load('train_dataset.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
+
+# Run the model on train_dataset
+model_lgbm.fit(train_dataset, df["target_reel"])
+y_predit = model_dm.predict(train_dataset)
+y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
 
 
 #header
@@ -45,9 +50,11 @@ classe_reele = df[(df['id']==id_client) & (df['classe_reel'])]
 
 
 # probabilité de deffaillance:
-df['prob_defaut'] = df['probabilite_default']*100
-prob = df[(df['id']==id_client) & (df['prob_defaut'])]
-prob = prob[['prob_defaut']]
+# df['prob_defaut'] = df['probabilite_default']*100
+prob_defaut = y_prob * 100
+#prob = df[(df['id']==id_client) & (df['prob_defaut'])]
+prob = df[(df['id']==id_client) & prob_defaut
+#prob = prob[['prob_defaut']]
 
 # probabilité de payement:
 #df['prob_pay'] = 1 - df['probabilite_defaut']
