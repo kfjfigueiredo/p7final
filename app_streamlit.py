@@ -27,7 +27,6 @@ model_lgbm.fit(train_dataset, df["target_reel"])
 y_predit = model_dm.predict(train_dataset)
 y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
 
-
 #header
 t1, t2 = st.columns((0.07,1)) 
 
@@ -48,25 +47,26 @@ df['classe_reel'] = np.where((df['target_reel']== 1), "avec défault", df['class
 df['classe_reel'] = np.where((df['target_reel']== 0), "sans défault", df['classe_reel'])
 classe_reele = df[(df['id']==id_client) & (df['classe_reel'])]
 
-
 # probabilité de deffaillance:
 # df['prob_defaut'] = df['probabilite_default']*100
 prob_defaut = y_prob*100
 #prob = df[(df['id']==id_client) & (df['prob_defaut'])]
-prob = df[(df['id']==id_client) & prob_defaut
+prob = df[(df['id']==id_client) & prob_defaut]
 #prob = prob[['prob_defaut']]
+          
 
 # probabilité de payement:
 #df['prob_pay'] = 1 - df['probabilite_defaut']
 #df['prob_pay'] = df['prob_pay'] *100 
 #prob_pay = df[(df['id']==id_client) & (df['prob_pay'])]
+          
     
 
 #affichage de la prédiction
 #chaine = '**Type de client :**' + str(classe_predit) 
 #st.markdown(chaine)
 
-chaine2 = '**Risque de défault :**' + int(prob) + '% de risque de défaut'
+chaine2 = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine2)
 
 
