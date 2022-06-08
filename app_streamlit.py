@@ -17,7 +17,7 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 
 # Telecharger la base de données
 # df = pd.read_csv('https://raw.githubusercontent.com/kfjfigueiredo/Projet_7/main/df_train_f2.csv',index_col= "SK_ID_CURR") # Code avant effacer ligne en bas
-df = joblib.load('df_train_f2.pkl')
+df = joblib.load('train_dataset.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
 
