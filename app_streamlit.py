@@ -23,7 +23,7 @@ train_dataset = joblib.load('train_dataset.pkl')
 model_lgbm = joblib.load('lgbm_model.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
-y = df["target_reel"]
+
 
 # Run the model on train_dataset
 model_lgbm.fit(train_dataset, df["target_reel"]);
