@@ -16,7 +16,7 @@ from PIL import Image
 st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ',  layout='wide')
 
 # Telecharger la base de données et les modèles
-df_complet = joblib.load('df_complet.pkl')
+df = joblib.load('df_complet.pkl') #df complet
 train_dataset = joblib.load('train_dataset.pkl')
 lgbm_model = joblib.load('train_dataset.pkl')
 img =Image.open('Logo_pad.PNG')
