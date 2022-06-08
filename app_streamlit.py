@@ -20,7 +20,7 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 # Telecharger la base de données et les modèles
 df = joblib.load('df_complet.pkl') #df complet
 train_dataset = joblib.load('train_dataset.pkl')
-model_lgbm = joblib.load('lgbm_model.pkl')
+model_lgbm = joblib.load('lgbm_model_2.pkl')
 model_lgbm(class_weight=None)
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
