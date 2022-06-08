@@ -7,8 +7,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib 
-import lightgbm
-
+#import lightgbm
+from lightgbm import LGBMClassifier
 import plotly.express as px
 import plotly.graph_objects as go
 
