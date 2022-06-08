@@ -20,13 +20,13 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 # Telecharger la base de données et les modèles
 df = joblib.load('df_complet.pkl') #df complet
 train_dataset = joblib.load('train_dataset.pkl')
-model_lgbm = joblib.load('lgbm_model_2 (2).pkl')
+model_lgbm = joblib.load('lgbm_model.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
 y = df["target_reel"]
 
 # Run the model on train_dataset
-model_lgbm.fit(train_dataset,y)
+model_lgbm.fit(X= train_dataset,y = y)
 y_predit = model_lgbm.predict(train_dataset)
 y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
 
