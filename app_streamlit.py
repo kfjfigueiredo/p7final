@@ -25,7 +25,7 @@ y = df["target_reel"]
 
 # Run the model on train_dataset
 model_lgbm.fit(train_dataset, y)
-y_predit = model_dm.predict(train_dataset)
+y_predit = model_lgbm.predict(train_dataset)
 y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
 
 #header
