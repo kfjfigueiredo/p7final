@@ -51,7 +51,7 @@ classe_reele = df[(df['id']==id_client) & (df['classe_reel'])]
 
 # probabilité de deffaillance:
 # df['prob_defaut'] = df['probabilite_default']*100
-prob_defaut = y_prob * 100
+prob_defaut = y_prob*100
 #prob = df[(df['id']==id_client) & (df['prob_defaut'])]
 prob = df[(df['id']==id_client) & prob_defaut
 #prob = prob[['prob_defaut']]
