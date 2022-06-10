@@ -72,7 +72,7 @@ chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
 #type de client:
-dt = probability.copy()
+dt = probability
 dt["type_de_client"] = "p"
 dt["type_de_client"] = np.where((dt['prob_defaut']>= 0.48), "client à risque", dt['type_de_client'])
 dt['type_de_client'] = np.where((dt['prob_defaut']<0.48), "client peu risqué", td['type_de_client'])
