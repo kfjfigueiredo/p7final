@@ -79,16 +79,8 @@ dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_d
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 #type_de_client = type_de_client['type_de_client']
 
-def type_client ():
-          dt['type_de_client']
-          
-          if dt['type_de_client'] == "client à risque":
-                    type_client  = "à risque"
-                    
-          if dt['type_de_client'] == "client peu risqué":
-                    type_client = "peu risqué"
- type_client =dt["type_de_client"]                   
- if type_client == 'client à risque':
+type_client =dt["type_de_client"]                   
+if type_client == 'client à risque':
             etat = 'à risque'
         else:
             etat = 'peu risqué'
