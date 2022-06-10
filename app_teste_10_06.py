@@ -77,7 +77,7 @@ dt["type_de_client"] = "p"
 dt["type_de_client"] = np.where((dt['1']>= 0.48), "client à risque", dt['type_de_client'])
 dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_de_client'])
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
-type_de_client = type_de_client[['type_de_client]]
+type_de_client = type_de_client[['type_de_client']]
 
 chaine2 = '**type de client :**' + str(type_de_client)
 
