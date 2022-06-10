@@ -56,8 +56,8 @@ t1.image(img, width = 120) #logo
 t2.title("Dashboard Scoring Credit ") # Titre du dashboard 
 
 # Filtre pour choisir le client: 
-df['id'] = df['id'].astype(str) # transformer l'ID en string 
-id_client = st.selectbox('Selectionnez un Id client', df['id'], help = 'Choisissez un seul id client')
+df['SK_ID_CURR'] = df['SK_ID_CURR'].astype(str) # transformer l'ID en string 
+id_client = st.selectbox('Selectionnez un Id client', df['SK_ID_CURR'], help = 'Choisissez un seul id client')
 
 st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%')
                   
