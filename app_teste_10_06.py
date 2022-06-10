@@ -82,8 +82,8 @@ type_de_client = type_de_client['type_de_client']
 
 
         
-#chaine2 = '**type de client :**' + str(type_de_client)
-#st.markdown(chaine2)
+chaine2 = '**type de client :**'
+st.markdown(chaine2)
 
 st.write(type_de_client.values)
 
