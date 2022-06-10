@@ -67,7 +67,7 @@ st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%
 #chaine = '**profil:**' + str(type_client) 
 #st.markdown(chaine)
 
-chaine2 = '**Probabilité de defaut de paiement:**' + str(round(probability*100)) +'%')
+chaine2 = '**Probabilité de defaut de paiement:**' {}%.format(round(probability*100)
 st.markdown(chaine2)
 
 
@@ -195,4 +195,10 @@ prob = df[(df['id']==id_client) & prob_defaut]
 
 
 #X.drop(["SK_ID_CURR'], axis= 1)
+                  
+                 
+if prediction[0] == 1:
+	st.subheader('Passenger {} would have survived with a probability of {}%'.format(name , round(predict_probability[0][1]*100 , 3)))
+else:
+	st.subheader('Passenger {} would not have survived with a probability of {}%'.format(name, round(predict_probability[0][0]*100 , 3)))   
 '''
