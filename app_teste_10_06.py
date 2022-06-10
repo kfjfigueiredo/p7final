@@ -68,7 +68,7 @@ st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%
 #st.markdown(chaine)
 
 chaine2 = '**Probabilité de defaut de paiement:** {}%'.format(round(probability*100)
-st.markdown(chaine2)
+							      st.markdown(chaine2)
 
 
 # PARTIE GRAPHIQUE 
