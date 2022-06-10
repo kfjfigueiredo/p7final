@@ -87,9 +87,15 @@ def type_client ():
                     
           if dt['type_de_client'] == "client peu risqué":
                     type_client = "peu risqué"
+ type_client =dt["type_de_client"]                   
+ if type_client == 'client à risque':
+            etat = 'à risque'
+        else:
+            etat = 'peu risqué'
                     
+chaine2 = 'type de client : **' + etat
           
-chaine2 = '**type de client :**' + str(type_client)
+#chaine2 = '**type de client :**' + str(type_client)
 st.markdown(chaine2)
 
 
