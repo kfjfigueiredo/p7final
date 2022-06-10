@@ -63,7 +63,7 @@ train_dataset = joblib.load('train_dataset.pkl')
 train_dataset['SK_ID_CURR'] = train_dataset.index
 X = train_dataset[train_dataset['SK_ID_CURR'] == id]
 X = X[mask]
-probability = lgbm_model.predict_proba(X)[:,1]
+probability = lgbm_model.predict_proba(X)
 
 st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%')
                   
