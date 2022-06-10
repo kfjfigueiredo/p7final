@@ -75,7 +75,7 @@ prob = prob[['1']]
 #chaine = '**Probabilité de défaut de payement:**' + str(round(prob*100)) + '%')
 
 
-chaine = '**Risque de défaut de payement :**' + **str(prob*100)** + '% de risque de défaut'
+chaine = '**Risque de défaut de payement :**' + str(prob*100) + '% de risque de défaut'
 st.markdown(chaine)
                  
 #affichage de la prédiction
