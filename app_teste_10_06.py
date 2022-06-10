@@ -85,7 +85,7 @@ if type_client == 'client à risque':
 else:
           etat = 'peu risqué'
                     
-chaine2 = 'type de client : **' + etat
+chaine2 = '**type de client : **' + etat
           
 #chaine2 = '**type de client :**' + str(type_client)
 st.markdown(chaine2)
