@@ -65,7 +65,7 @@ train_dataset = joblib.load('train_dataset.pkl')
 #X = X[mask]
 probability = lgbm_model.predict_proba(train_dataset)
 
-probability = pd.DataFrame(probability, columns= ["0", "1"], index= trainset.index)
+probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
 probability["id_client"] = probability.index
 probability = probability[["id_client", "1"]]
 
