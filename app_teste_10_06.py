@@ -19,9 +19,9 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 
 #telecharger la base de données et le modèle entrainé:
 
-def load_train_dataset():
-          train_dataset = joblib.load('train_dataset.pkl')   
-          train_dataset['SK_ID_CURR'] = train_dataset.index        
+def load_test_dataset():
+          test_dataset = joblib.load('test_dataset_complet.pkl')   
+          test_dataset['SK_ID_CURR'] = test_dataset.index        
           return train_dataset
 
 def load_model():
@@ -30,13 +30,13 @@ def load_model():
 
 def get_traindataset(id):
           id = int(id)
-          X = train_dataset[train_dataset['SK_ID_CURR'] == id]
+          X = test_dataset[test_dataset['SK_ID_CURR'] == id]
           return X
 
-def calculate_probability(train_dataset):
+def calculate_probability(test_dataset):
            probability = lgbm_model.predict_proba(X)[:,1]
            return probability 
-def calculate_target(train_dataset):
+def calculate_target(test_dataset):
            target_predit = lgbm.model.predict(X)
            return target_predit
           
@@ -48,7 +48,7 @@ t1, t2 = st.columns((0.07,1))
 
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
-df = joblib.load('df_complet.pkl')
+df = joblib.load('dataset_test_complet.pkl')
                     
 t1.image(img, width = 120) #logo
 t2.title("Dashboard Scoring Credit ") # Titre du dashboard 
@@ -59,10 +59,7 @@ id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisiss
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
 mask = joblib.load('mask_list.pkl') #liste de variables a run le modèle
-train_dataset = joblib.load('train_dataset.pkl')   
-#train_dataset['SK_ID_CURR'] = train_dataset.index
-#X = train_dataset[train_dataset['SK_ID_CURR'] == id]
-#X = X[mask]
+test_set = joblib.load('train_dataset.pkl')   
 probability = lgbm_model.predict_proba(train_dataset)
 
 probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
@@ -71,12 +68,14 @@ probability = probability[["id_client", "1"]]
 
 prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
 prob = prob[['1']]
-#st.write('Probabilité de defaut de paiement:', str(round(prob*100)) +'%')
-#chaine = '**Probabilité de défaut de payement:**' **'  + str(round(prob*100)) + '%**')
 
 chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
+#type de client:
+df["type_de_client"] = "p"
+df["type_de_client"] = np.where((df['prob_defaut']>= 0.48), "client à risque", df['type_de_client'])
+df['type_de_client'] = np.where((df['prob_defaut']<0.48), "client peu risqué", df['type_de_client'])
 
 # PARTIE GRAPHIQUE 
 
