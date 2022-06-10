@@ -77,7 +77,7 @@ df["type_de_client"] = "p"
 df["type_de_client"] = np.where((df['prob_defaut']>= 0.48), "client à risque", df['type_de_client'])
 df['type_de_client'] = np.where((df['prob_defaut']<0.48), "client peu risqué", df['type_de_client'])
 
-df["id"] = df["SK_ID_CURR"]
+df["id"] = df.index
 
 # PARTIE GRAPHIQUE 
 
