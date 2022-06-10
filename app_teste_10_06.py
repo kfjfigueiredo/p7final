@@ -69,9 +69,12 @@ prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
 prob = prob[['1']]
 prob2 = prob*100
 
+# Affiche des informations sur le client: 
+
+i1, i2 = st.columns((1,1))
 chaine = '**Risque de défaut de payement par le client:**'
-st.markdown(chaine)
-st.write(prob2.values)
+i1.markdown(chaine)
+i1.write(prob2.values)
 
 #type de client:
 dt = probability
@@ -83,8 +86,8 @@ type_de_client = type_de_client['type_de_client']
 
     
 chaine2 = '**type de client :**'
-st.markdown(chaine2)
-st.write(type_de_client.values)
+i2.markdown(chaine2)
+i2.write(type_de_client.values)
 
 
                                  
