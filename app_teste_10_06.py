@@ -81,9 +81,9 @@ type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 
 def type_de_client_b():
  if dt["type_de_client"] == "client à risque":
-         return type_de_client_b == "client à risque"
+         type_de_client_b == "client à risque"
  if dt["type_de_client"] == "client peu risqué":
-          return type_de_client_b == "client peu risqué"
+         type_de_client_b == "client peu risqué"
 
 
 chaine2 = '**type de client :**' + str(type_de_client_b)
