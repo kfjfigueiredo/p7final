@@ -34,7 +34,6 @@ def load_model():
 def get_traindataset(id):
           id = int(id)
           X = train_dataset[train_dataset['SK_ID_CURR'] == id]
-          #X.drop(["SK_ID_CURR'], axis= 1)
           return X
 
 def calculate_probability(train_dataset):
