@@ -43,15 +43,7 @@ def calculate_target(train_dataset):
            target_predit = lgbm.model.predict(X)
            return target_predit
           
-                  
-def type_client(train_dataset):
-           if target_predit == 1:
-                  type_client == "client Avec un risque elevé de défaut de paiement'
-           else:
-                  type_client == "client avec peu de risque de défaut de paiement'
-           return type_client
-                  
-                         
+                    
 
 #header
 t1, t2 = st.columns((0.07,1)) 
@@ -200,4 +192,7 @@ prob = df[(df['id']==id_client) & prob_defaut]
 #df['prob_pay'] = 1 - df['probabilite_defaut']
 #df['prob_pay'] = df['prob_pay'] *100 
 #prob_pay = df[(df['id']==id_client) & (df['prob_pay'])]
+
+
+#X.drop(["SK_ID_CURR'], axis= 1)
 '''
