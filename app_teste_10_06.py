@@ -67,9 +67,11 @@ probability = probability[["id_client", "1"]]
 
 prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
 prob = prob[['1']]
+prob2 = prob*100
 
-chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
+chaine = '**Risque de défaut de payement par le client:**'
 st.markdown(chaine)
+st.write(prob2.values)
 
 #type de client:
 dt = probability
@@ -79,12 +81,9 @@ dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_d
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
 
-
-
-        
+    
 chaine2 = '**type de client :**'
 st.markdown(chaine2)
-
 st.write(type_de_client.values)
 
 
