@@ -81,9 +81,9 @@ type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 
 type_client =dt["type_de_client"]                   
 if type_client == 'client à risque':
-            etat = 'à risque'
-        else:
-            etat = 'peu risqué'
+          etat = 'à risque'
+else:
+          etat = 'peu risqué'
                     
 chaine2 = 'type de client : **' + etat
           
