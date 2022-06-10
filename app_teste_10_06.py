@@ -81,7 +81,8 @@ type_de_client = type_de_client[['type_de_client]]
 
 chaine2 = '**type de client :**' + str(type_de_client)
 
-df[type_de_client] = dt['type_de_client']
+                                 
+df['type_de_client'] = dt['type_de_client']
 
 df["id"] = df.index
 
