@@ -77,10 +77,84 @@ prob = prob[['1']]
 chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
-                 
-#affichage de la prédiction
-#chaine = '**profil:**' + str(type_client) 
-#st.markdown(chaine)
 
-#chaine2 = '**Probabilité de defaut de paiement:** {}%'.format(round(probability*100)
-#st.markdown(chaine2)
+# PARTIE GRAPHIQUE 
+
+g1, g2, g3 = st.columns((1,1,1))
+
+
+# 1er graph:
+g1.subheader("Ranking des features importances avec SHAP ") # Titre du dashboard 
+g1.image(graphique_shap_importance, width = 500) #graphique de features importance avec Shap
+
+
+# 2eme graph:
+
+import plotly.express as px
+import plotly.graph_objects as go
+
+fig1 = px.box(df, x= "type_de_client", y= "PAYMENT_RATE", title= f'Payment Rate par Target')
+fig1.update_traces(marker_color='#264653')
+fig2 =  px.scatter(x = df['type_de_client'][(df["id"] == id_client)], y = df['PAYMENT_RATE'][(df["id"] == id_client)])
+fig2.update_traces(marker_color= 'red')
+fig3 = go.Figure(data=fig1.data + fig2.data)
+#fig3.update_layout(title_text="Payement Rate par rapport au type de client ",title_x=0,margin= dict(l=5,r=5,b=10,t=30), yaxis_title=None, xaxis_title=None)
+g2.subheader("Payment Rate x Client_Type")
+g2.plotly_chart(fig3, use_container_width=False)
+
+# 3eme graph  
+
+fig4 = px.box(df, x= "CODE_GENDER", y= "DAYS_BIRTH")
+fig4.update_traces(marker_color='#264653')
+fig5 =  px.scatter(x = df['CODE_GENDER'][(df["id"] == id_client)], y = df['DAYS_BIRTH'][(df["id"] == id_client)])
+fig5.update_traces(marker_color= 'red')
+fig6 = go.Figure(data=fig4.data + fig5.data)
+g3.subheader("DAYS BIRTH x GENDER_CODE")
+g3.plotly_chart(fig6, use_container_width=True)
+
+# 2ème ligne de graphs:
+
+l1, l2, l3 = st.columns((1,1,1))
+
+#4ème graph : 
+fig7 = px.box(df, x= "NAME_FAMILY_STATUS_Married", y= "EXT_SOURCE_2")
+fig7.update_traces(marker_color='#264653')
+fig8 =  px.scatter(x = df['NAME_FAMILY_STATUS_Married'][(df["id"] == id_client)], y = df['EXT_SOURCE_2'][(df["id"] == id_client)])
+fig8.update_traces(marker_color= 'red')
+fig9 = go.Figure(data=fig7.data + fig8.data)
+l1.subheader("EXT_SOURCE_2 x Marital Situation (maried)")
+l1.plotly_chart(fig9, use_container_width=True)
+
+#5ème graph : 
+fig10 = px.box(df, x= "NAME_EDUCATION_TYPE", y= "EXT_SOURCE_2")
+fig10.update_traces(marker_color='#264653')
+fig11 =  px.scatter(x = df['NAME_EDUCATION_TYPE'][(df["id"] == id_client)], y = df['EXT_SOURCE_2'][(df["id"] == id_client)])
+fig11.update_traces(marker_color= 'red')
+fig12 = go.Figure(data=fig10.data + fig11.data)
+l2.subheader("EXT_SOURCE_2 x Education Type")
+l2.plotly_chart(fig12, use_container_width=True)
+
+#6ème graph : 
+fig10 = px.box(df, x= "NAME_EDUCATION_TYPE", y= "EXT_SOURCE_3")
+fig10.update_traces(marker_color='#264653')
+fig11 =  px.scatter(x = df['NAME_EDUCATION_TYPE'][(df["id"] == id_client)], y = df['EXT_SOURCE_3'][(df["id"] == id_client)])
+fig11.update_traces(marker_color= 'red')
+fig12 = go.Figure(data=fig10.data + fig11.data)
+l3.subheader("EXT_SOURCE_3 x Education Type")
+l3.plotly_chart(fig12, use_container_width=True)
+
+
+#ajout informations concernant variables:
+
+k1, k2, k3 = st.columns((1,1,1))
+k1.subheader("Explication des variables")
+
+'''
+\n\
+* **RANKING de Features Importance avec SHAP** : les valeurs de Shap sont représentées pour chaque variable dans leur ordre d’importance, chaque point représente une valeur de Shap, les points rouges représentent des valeurs élevées de la variable et les points bleus des valeurs basses de la variable
+* **EXT_SOURCE_2, EXT_SOURCE_3** : Score Normalisé - Source Externe \n\
+* **CLIENT TYPE** : Les clients avec une probabilité de défaut de paiement supérieur à 48% sont considerés des clients à risque et ceux avec une probabilité sont considerés clients peu risqués \n\
+* **GENDER_CODE** : M - Masculin / F - Feminin \n\
+* **Status Marital: Marié(e)** : valeur moyenne pour l'ensemble des clients en défaut\n\
+* **DAYS_BIRTH** : Age du client (en jours) au moment de la demande de crédit\n\n\
+'''
