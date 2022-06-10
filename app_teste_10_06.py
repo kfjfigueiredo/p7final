@@ -38,7 +38,7 @@ def get_traindataset(id):
 
 def calculate_probability(train_dataset):
            probability = lgbm_model.predict(X)[:,1]
-                  return probability 
+           return probability 
           
                   
 def type_client(train_dataset):
