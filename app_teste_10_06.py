@@ -77,6 +77,8 @@ df["type_de_client"] = "p"
 df["type_de_client"] = np.where((df['prob_defaut']>= 0.48), "client à risque", df['type_de_client'])
 df['type_de_client'] = np.where((df['prob_defaut']<0.48), "client peu risqué", df['type_de_client'])
 
+df["id"] = df["SK_ID_CURR"]
+
 # PARTIE GRAPHIQUE 
 
 g1, g2, g3 = st.columns((1,1,1))
