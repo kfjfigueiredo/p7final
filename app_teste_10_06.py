@@ -28,7 +28,7 @@ def load_model():
           model_lgbm = joblib.load('lgbm_model_trained.pkl')
           return model_lgbm
 
-def get_traindataset(id):
+def get_test_dataset(id):
           id = int(id)
           X = test_dataset[test_dataset['SK_ID_CURR'] == id]
           return X
@@ -59,7 +59,7 @@ id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisiss
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
 mask = joblib.load('mask_list.pkl') #liste de variables a run le modèle
-test_set = joblib.load('train_dataset.pkl')   
+test_set = joblib.load('test_dataset_complet.pkl')   
 probability = lgbm_model.predict_proba(test_set)
 
 probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
