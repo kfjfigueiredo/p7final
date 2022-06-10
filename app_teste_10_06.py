@@ -72,7 +72,10 @@ probability = probability[["id_client", "1"]]
 
 prob = probability[(probability.index ==id_client) & (probability["1"])]
 #st.write('Probabilité de defaut de paiement:', str(round(prob*100)) +'%')
-chaine = '**Probabilité de défaut de payement:**' + str(round(prob*100)) + '%')
+#chaine = '**Probabilité de défaut de payement:**' + str(round(prob*100)) + '%')
+
+chaine = '**Risque de défaut de payement :**' + str(prob) + '% de risque de défaut'
+st.markdown(chaine)
                  
 #affichage de la prédiction
 #chaine = '**profil:**' + str(type_client) 
