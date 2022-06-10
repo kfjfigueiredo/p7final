@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -21,7 +16,7 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 # Telecharger la base de données et les modèles
 df = joblib.load('df_complet.pkl') #df complet
 train_dataset = joblib.load('train_dataset.pkl')
-model_lgbm = joblib.load('lgbm_model.pkl')
+model_lgbm = joblib.load('lgbm_model_trained.pkl')
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
 
