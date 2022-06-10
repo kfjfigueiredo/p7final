@@ -69,10 +69,9 @@ prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
 prob = prob[['1']]
 prob2 = prob*100
 
-# Affiche des informations sur le client: 
-
+# Affiche des informations sur le client prédits sur ls données test: 
 i1, i2 = st.columns((1,1))
-chaine = '**Risque de défaut de payement par le client:**'
+chaine = '**Risque de défaut de payement par le client (en %):**'
 i1.markdown(chaine)
 i1.write(prob2.values)
 
