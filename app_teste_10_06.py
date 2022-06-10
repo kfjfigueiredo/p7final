@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import joblib 
 import warnings
-#import lightgbm
 from lightgbm import LGBMClassifier
 import lightgbm as ltb
 import plotly.express as px
@@ -17,30 +16,11 @@ st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ', 
 
 @st.cache(ttl=60*5, suppress_st_warning = True)
 
-#telecharger la base de données et le modèle entrainé:
-
-def load_test_dataset():
-          test_dataset = joblib.load('test_dataset_complet.pkl')   
-          test_dataset['SK_ID_CURR'] = test_dataset.index        
-          return train_dataset
-
+#telecharger le modèle entrainé auparavant:
 def load_model():
           model_lgbm = joblib.load('lgbm_model_trained.pkl')
           return model_lgbm
-
-def get_test_dataset(id):
-          id = int(id)
-          X = test_dataset[test_dataset['SK_ID_CURR'] == id]
-          return X
-
-def calculate_probability(test_dataset):
-           probability = lgbm_model.predict_proba(X)[:,1]
-           return probability 
-def calculate_target(test_dataset):
-           target_predit = lgbm.model.predict(X)
-           return target_predit
-          
-                    
+             
 
 #header
 t1, t2 = st.columns((0.07,1)) 
@@ -53,19 +33,23 @@ df = joblib.load('dataset_test_complet.pkl')
 t1.image(img, width = 120) #logo
 t2.title("Dashboard Scoring Credit ") # Titre du dashboard 
 
-# Filtre pour choisir le client: 
+#Filtre pour choisir le client: 
 #df['SK_ID_CURR'] = df['SK_ID_CURR'].astype(str) # transformer l'ID en string 
 id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisissez un seul id client')
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
+
+# RUN THE MODEL ON TEST SET SAVED AS PKL OBJECT 
+
 test_set = joblib.load('test_set.pkl')   
 probability = lgbm_model.predict_proba(test_set) # executer le prédict sur le jeu de données inédit pour nous données la probabilité de défaut de paiement
 
+# PREDICTION PROBABILITE DE DEFAUT DE PAIEMENT POUR CHAQUE CLIENT
 probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
 probability["id_client"] = probability.index
 probability = probability[["id_client", "1"]]
 
-prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
+prob = probability[(probability["id_client"] ==id_client) & (probability["1"])] #lier l'ID client à l'information
 prob = prob[['1']]
 prob2 = prob*100
 
@@ -75,11 +59,13 @@ chaine = '**Risque de défaut de payement par le client (en %):**'
 i1.markdown(chaine)
 i1.write(prob2.values)
 
-#type de client:
+# CREATION DE L'INFORMATION SUR LE TYPE DE CLIENT (A RISQUE OU PAS):
+
 dt = probability
 dt["type_de_client"] = "p"
 dt["type_de_client"] = np.where((dt['1']>= 0.48), "client à risque", dt['type_de_client'])
 dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_de_client'])
+
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
 
@@ -91,7 +77,6 @@ i2.write(type_de_client.values)
 
                                  
 df['type_de_client'] = dt['type_de_client']
-
 df["id"] = df.index
 
 # PARTIE GRAPHIQUE 
