@@ -71,10 +71,6 @@ prob = prob[['1']]
 chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
-def type_client ():
-          dt['type_de_client']
-          
-          if dt['type_de_client'] == "client à risque 
 #type de client:
 dt = probability
 dt["type_de_client"] = "p"
