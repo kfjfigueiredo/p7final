@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib 
+import warnings
 #import lightgbm
 from lightgbm import LGBMClassifier
 import lightgbm as ltb
@@ -13,22 +14,50 @@ from PIL import Image
 # Page setting
 st.set_page_config(page_title='Dashboard Scoring Credit - Prêt à dépenser ',  layout='wide')
 
-# Telecharger la base de données et les modèles
-df = joblib.load('df_complet.pkl') #df complet
-train_dataset = joblib.load('train_dataset.pkl')
-model_lgbm = joblib.load('lgbm_model_trained.pkl')
-img =Image.open('Logo_pad.PNG')
-graphique_shap_importance = Image.open('Shap_importance.png')
 
+@st.cache(ttl=60*5, suppress_st_warning = True)
 
-# Run the model on train_dataset
-model_lgbm.fit(train_dataset, df["target_reel"]);
-y_predit = model_lgbm.predict(train_dataset)
-y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
+#telecharger la base de données et le modèle entrainé:
+
+def load_train_dataset():
+          train_dataset = joblib.load('train_dataset.pkl')   
+          train_dataset['SK_ID_CURR'] = train_dataset.index        
+          return train_dataset
+
+def load_df_complet():
+          df = joblib.load('df_complet.pkl')
+
+def load_model():
+          model_lgbm = joblib.load('lgbm_model_trained.pkl')
+          return model_lgbm
+
+def get_traindataset(id):
+          id = int(id)
+          X = train_dataset[train_dataset['SK_ID_CURR'] == id]
+          X.drop(["SK_ID_CURR'], axis= 1, inplace = True)
+          return X
+
+def calculate_probability(train_dataset):
+           probability = lgbm_model.predict(X)[:,1]
+                  return probability 
+          
+                  
+def type_client(train_dataset):
+           if probability => float(0.48):
+                  type_client == "client Avec un risque elevé de défaut de paiement'
+           else:
+                  type_client == "client avec peu de risque de défaut de paiement'
+           return type_client
+                  
+                         
 
 #header
 t1, t2 = st.columns((0.07,1)) 
 
+
+img =Image.open('Logo_pad.PNG')
+graphique_shap_importance = Image.open('Shap_importance.png')
+                    
 t1.image(img, width = 120) #logo
 t2.title("Dashboard Scoring Credit ") # Titre du dashboard 
 
@@ -36,36 +65,15 @@ t2.title("Dashboard Scoring Credit ") # Titre du dashboard
 df['id'] = df['id'].astype(str) # transformer l'ID en string 
 id_client = st.selectbox('Selectionnez un Id client', df['id'], help = 'Choisissez un seul id client')
 
-# Type de client:
-classe_predit = df[(df['id']==id_client) & (df['type_de_client'])]
-classe_predit = classe_predit[["type_de_client"]]
+     
 
-# Classe réele:
-df['classe_reel'] = "p"
-df['classe_reel'] = np.where((df['target_reel']== 1), "avec défault", df['classe_reel'])
-df['classe_reel'] = np.where((df['target_reel']== 0), "sans défault", df['classe_reel'])
-classe_reele = df[(df['id']==id_client) & (df['classe_reel'])]
-
-# probabilité de deffaillance:
-# df['prob_defaut'] = df['probabilite_default']*100
-prob_defaut = y_prob*100
-#prob = df[(df['id']==id_client) & (df['prob_defaut'])]
-prob = df[(df['id']==id_client) & prob_defaut]
-#prob = prob[['prob_defaut']]
-          
-
-# probabilité de payement:
-#df['prob_pay'] = 1 - df['probabilite_defaut']
-#df['prob_pay'] = df['prob_pay'] *100 
-#prob_pay = df[(df['id']==id_client) & (df['prob_pay'])]
-          
-    
-
+st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%')
+                  
 #affichage de la prédiction
-#chaine = '**Type de client :**' + str(classe_predit) 
+#chaine = '**profil:**' + str(type_client) 
 #st.markdown(chaine)
 
-chaine2 = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
+chaine2 = '**Probabilité de defaut de paiement:**' + str(round(probability*100)) +'%')
 st.markdown(chaine2)
 
 
@@ -153,3 +161,41 @@ k1.subheader("Explication des variables")
 
 
 #Run sur streamlit: streamlit run "C:/Users/kathl/Desktop/Projet7_OP/streamlit_app.py
+                    
+ '''
+ #creer un appel au ID client:
+ID = int(ID)
+X = train_dataset[train_dataset['SK_ID_CURR'] == ID]
+X = X.drop(['SK_ID_CURR'], axis = 1)
+
+# predit
+model_lgbm.fit(train_dataset, df["target_reel"]);
+#y_predit = model_lgbm.predict(train_dataset)
+#y_prob = model_lgbm.predict_proba(train_dataset)[:,1]
+
+prediction = lgbm_model.predict(X)
+proba = lgbm.model.predict_proba(X)[:,1]
+
+# Type de client:
+classe_predit = df[(df['id']==id_client) & (df['type_de_client'])]
+classe_predit = classe_predit[["type_de_client"]]
+
+# Classe réele:
+df['classe_reel'] = "p"
+df['classe_reel'] = np.where((df['target_reel']== 1), "avec défault", df['classe_reel'])
+df['classe_reel'] = np.where((df['target_reel']== 0), "sans défault", df['classe_reel'])
+classe_reele = df[(df['id']==id_client) & (df['classe_reel'])]
+
+# probabilité de deffaillance:
+# df['prob_defaut'] = df['probabilite_default']*100
+prob_defaut = y_prob*100
+#prob = df[(df['id']==id_client) & (df['prob_defaut'])]
+prob = df[(df['id']==id_client) & prob_defaut]
+#prob = prob[['prob_defaut']]
+          
+
+# probabilité de payement:
+#df['prob_pay'] = 1 - df['probabilite_defaut']
+#df['prob_pay'] = df['prob_pay'] *100 
+#prob_pay = df[(df['id']==id_client) & (df['prob_pay'])]
+'''
