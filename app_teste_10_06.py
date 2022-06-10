@@ -71,6 +71,10 @@ prob = prob[['1']]
 chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
+def type_client ():
+          dt['type_de_client']
+          
+          if dt['type_de_client'] == "client à risque 
 #type de client:
 dt = probability
 dt["type_de_client"] = "p"
@@ -79,16 +83,19 @@ dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_d
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 #type_de_client = type_de_client['type_de_client']
 
-if dt["type_de_client"] == "client à risque":
-          chaine2 == '**type de client :**' + 'client à risque'
+def type_client ():
+          dt['type_de_client']
           
-else:
-          chaine2 == '**type de client :**' + 'client peu risqué'
+          if dt['type_de_client'] == "client à risque":
+                    type_client  = "à risque"
+                    
+          if dt['type_de_client'] == "client peu risqué":
+                    type_client = "peu risqué"
+                    
           
- return chaine2
-          
-#chaine2 = '**type de client :**' + str(type_de_client_b)
+chaine2 = '**type de client :**' + str(type_client)
 st.markdown(chaine2)
+
 
                                  
 df['type_de_client'] = dt['type_de_client']
