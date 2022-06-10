@@ -58,9 +58,8 @@ t2.title("Dashboard Scoring Credit ") # Titre du dashboard
 id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisissez un seul id client')
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
-mask = joblib.load('mask_list.pkl') #liste de variables a run le modèle
 test_set = joblib.load('test_set.pkl')   
-probability = lgbm_model.predict_proba(test_set)
+probability = lgbm_model.predict_proba(test_set) # executer le prédict sur le jeu de données inédit pour nous données la probabilité de défaut de paiement
 
 probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
 probability["id_client"] = probability.index
@@ -73,9 +72,15 @@ chaine = '**Risque de défault :**' + str(prob) + '% de risque de défaut'
 st.markdown(chaine)
 
 #type de client:
-df["type_de_client"] = "p"
-df["type_de_client"] = np.where((df['prob_defaut']>= 0.48), "client à risque", df['type_de_client'])
-df['type_de_client'] = np.where((df['prob_defaut']<0.48), "client peu risqué", df['type_de_client'])
+dt = probability.copy
+dt["type_de_client"] = "p"
+dt["type_de_client"] = np.where((dt['prob_defaut']>= 0.48), "client à risque", dt['type_de_client'])
+dt['type_de_client'] = np.where((dt['prob_defaut']<0.48), "client peu risqué", td['type_de_client'])
+dt = dt[['type_de_client']]
+
+chaine2 = '**type de client :**' + dt
+
+df[type_de_client] = dt
 
 df["id"] = df.index
 
