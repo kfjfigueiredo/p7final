@@ -65,10 +65,15 @@ train_dataset = joblib.load('train_dataset.pkl')
 #X = X[mask]
 probability = lgbm_model.predict_proba(train_dataset)
 
+probability = pd.DataFrame(probability, columns= ["0", "1"], index= trainset.index)
+probability["id_client"] = probability.index
+probability = probability[["id_client", "1"]]
 
-#prob = df[(df.index ==id_client) & (probability.index)]
-st.write('Probabilité de defaut de paiement:', str(round(probability*100)) +'%')
-                  
+
+prob = probability[(probability.index ==id_client) & (probability["1"])]
+#st.write('Probabilité de defaut de paiement:', str(round(prob*100)) +'%')
+chaine = '**Probabilité de défaut de payement:**' + str(round(prob*100)) + '%')
+                 
 #affichage de la prédiction
 #chaine = '**profil:**' + str(type_client) 
 #st.markdown(chaine)
