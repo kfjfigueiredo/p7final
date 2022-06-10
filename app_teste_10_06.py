@@ -80,6 +80,7 @@ type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
 
 chaine2 = '**type de client :**' + str(type_de_client)
+st.markdown(chaine2)
 
                                  
 df['type_de_client'] = dt['type_de_client']
