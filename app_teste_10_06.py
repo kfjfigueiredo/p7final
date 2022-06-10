@@ -59,7 +59,7 @@ id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisiss
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
 mask = joblib.load('mask_list.pkl') #liste de variables a run le modèle
-test_set = joblib.load('dataset_test_complet.pkl')   
+test_set = joblib.load('test_set.pkl')   
 probability = lgbm_model.predict_proba(test_set)
 
 probability = pd.DataFrame(probability, columns= ["0", "1"], index= df.index)
