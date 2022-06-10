@@ -37,12 +37,15 @@ def get_traindataset(id):
           return X
 
 def calculate_probability(train_dataset):
-           probability = lgbm_model.predict(X)[:,1]
+           probability = lgbm_model.predict_proba(X)[:,1]
            return probability 
+def calculate_target(train_dataset):
+           target_predit = lgbm.model.predict(X)
+           return target_predit
           
                   
 def type_client(train_dataset):
-           if probability => float(0.48):
+           if target_predit == 1:
                   type_client == "client Avec un risque elevé de défaut de paiement'
            else:
                   type_client == "client avec peu de risque de défaut de paiement'
