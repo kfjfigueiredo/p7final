@@ -58,10 +58,11 @@ t2.title("Dashboard Scoring Credit ") # Titre du dashboard
 id_client = st.selectbox('Selectionnez un Id client', df.index, help = 'Choisissez un seul id client')
 
 lgbm_model = joblib.load('lgbm_model_trained.pkl')
+mask_list = joblib.load('mask_list_trained.pkl')
 train_dataset = joblib.load('train_dataset.pkl')   
 train_dataset['SK_ID_CURR'] = train_dataset.index
 X = train_dataset[train_dataset['SK_ID_CURR'] == id]
-X.drop(["SK_ID_CURR'], axis= 1)
+X = X[mask]
 probability = lgbm_model.predict_proba(X)[:,1]
 
 st.write('Probabilité de defaut de paiement:', str(round(probability *100)) +'%')
