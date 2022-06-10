@@ -82,8 +82,10 @@ type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 if dt["type_de_client"] == "client à risque":
           chaine2 == '**type de client :**' + 'client à risque'
           
-if dt["type_de_client"] == "client peu risqué":
+else:
           chaine2 == '**type de client :**' + 'client peu risqué'
+          
+ return chaine2
           
 #chaine2 = '**type de client :**' + str(type_de_client_b)
 st.markdown(chaine2)
