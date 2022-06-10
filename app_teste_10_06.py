@@ -70,6 +70,7 @@ probability["id_client"] = probability.index
 probability = probability[["id_client", "1"]]
 
 prob = probability[(probability["id_client"] ==id_client) & (probability["1"])]
+prob = prob[['1']]
 #st.write('Probabilité de defaut de paiement:', str(round(prob*100)) +'%')
 #chaine = '**Probabilité de défaut de payement:**' + str(round(prob*100)) + '%')
 
