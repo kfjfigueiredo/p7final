@@ -84,7 +84,7 @@ type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
 
     
-chaine2 = '**type de client :**'
+chaine2 = '**Type de client :**'
 i2.markdown(chaine2)
 i2.write(type_de_client.values)
 
