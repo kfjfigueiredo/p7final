@@ -24,9 +24,6 @@ def load_train_dataset():
           train_dataset['SK_ID_CURR'] = train_dataset.index        
           return train_dataset
 
-def load_df_complet():
-          df = joblib.load('df_complet.pkl')
-
 def load_model():
           model_lgbm = joblib.load('lgbm_model_trained.pkl')
           return model_lgbm
@@ -51,6 +48,7 @@ t1, t2 = st.columns((0.07,1))
 
 img =Image.open('Logo_pad.PNG')
 graphique_shap_importance = Image.open('Shap_importance.png')
+df = joblib.load('df_complet.pkl')
                     
 t1.image(img, width = 120) #logo
 t2.title("Dashboard Scoring Credit ") # Titre du dashboard 
