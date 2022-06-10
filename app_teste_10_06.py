@@ -79,10 +79,16 @@ dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_d
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
 
-st.text(type_de_client)
-          
+client_type = type_de_client
+if client_type == 1:
+          etat = 'à risque'
+else:
+          etat = 'peu risqué'
+
+        
 #chaine2 = '**type de client :**' + str(type_de_client)
-#st.markdown(chaine2)
+chaine2 = '** type de client: **' + etat
+st.markdown(chaine2)
 
 
                                  
