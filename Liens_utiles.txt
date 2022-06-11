@@ -1,2 +1,2 @@
 Le lien de mon Github: https://github.com/kfjfigueiredo/p7final.git
-le lien de mon dashboard deployé avec Streamlit : 
+le lien de mon dashboard deployé avec Streamlit : https://share.streamlit.io/kfjfigueiredo/p7final/main/dash_board_streamlit.py
