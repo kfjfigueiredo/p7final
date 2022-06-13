@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
+import warnings
 import numpy as np
 import joblib 
-import warnings
 from lightgbm import LGBMClassifier
 import lightgbm as ltb
 import plotly.express as px
@@ -80,12 +80,6 @@ df['type_de_client'] = dt['type_de_client']
 df["id"] = df.index
 
 
-#try SHAP
-import shap
-explainer = shap.TreeExplainer(lgbm_model)
-shap_values = explainer.shap_values(test_set)
-fig_x = shap.summary_plot(shap_values[0], test_set)
-
 # PARTIE GRAPHIQUE 
 
 g1, g2, g3 = st.columns((1,1,1))
@@ -93,9 +87,7 @@ g1, g2, g3 = st.columns((1,1,1))
 
 # 1er graph:
 g1.subheader("Ranking des features importances avec SHAP ") # Titre du dashboard 
-#g1.image(graphique_shap_importance, width = 500) #graphique de features importance avec Shap
-g1.plotly_chart(fig_x, use_container_width=True)
-
+g1.image(graphique_shap_importance, width = 500) #graphique de features importance avec Shap
 
 # 2eme graph:
 
