@@ -63,8 +63,8 @@ i1.write(prob2.values)
 
 dt = probability
 dt["type_de_client"] = "p"
-dt["type_de_client"] = np.where((dt['1']>= 0.48), "client à risque", dt['type_de_client'])
-dt['type_de_client'] = np.where((dt['1']<0.48), "client peu risqué", dt['type_de_client'])
+dt["type_de_client"] = np.where((dt['1']>= 0.08), "client à risque", dt['type_de_client'])
+dt['type_de_client'] = np.where((dt['1']<0.08), "client peu risqué", dt['type_de_client'])
 
 type_de_client = dt[(dt['id_client']==id_client) & (dt['type_de_client'])]
 type_de_client = type_de_client['type_de_client']
@@ -154,7 +154,7 @@ k1.subheader("Explication des variables")
 \n\
 * **RANKING de Features Importance avec SHAP** : les valeurs de Shap sont représentées pour chaque variable dans leur ordre d’importance, chaque point représente une valeur de Shap, les points rouges représentent des valeurs élevées de la variable et les points bleus des valeurs basses de la variable
 * **EXT_SOURCE_2, EXT_SOURCE_3** : Score Normalisé - Source Externe \n\
-* **CLIENT TYPE** : Les clients avec une probabilité de défaut de paiement supérieur à 48% sont considerés des clients à risque et ceux avec une probabilité sont considerés clients peu risqués \n\
+* **CLIENT TYPE** : Les clients avec une probabilité de défaut de paiement supérieur à 8% sont considerés des clients à risque et ceux avec une probabilité sont considerés clients peu risqués \n\
 * **GENDER_CODE** : M - Masculin / F - Feminin \n\
 * **Status Marital: Marié(e)** : valeur moyenne pour l'ensemble des clients en défaut\n\
 * **DAYS_BIRTH** : Age du client (en jours) au moment de la demande de crédit\n\n\
